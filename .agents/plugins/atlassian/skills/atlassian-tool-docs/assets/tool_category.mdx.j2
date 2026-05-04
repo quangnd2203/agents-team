@@ -1,0 +1,47 @@
+---
+title: {{ category.title }}
+description: {{ category.description }}
+---
+
+# {{ category.title }}
+
+{{ category.description }}
+
+{% for tool in tools %}
+## `{{ tool.name }}`
+
+**{{ tool.display_name }}**
+
+{{ tool.description }}
+
+{% if tool.parameters %}
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+{% for param in tool.parameters %}
+| `{{ param.name | escape_pipe }}` | `{{ param.type | escape_pipe }}` | {{ "Yes" if param.required else "No" }} | {{ param.description | escape_pipe | escape_mdx }} |
+{% endfor %}
+{% else %}
+This tool has no input parameters.
+{% endif %}
+
+{% if tool.override and tool.override.example %}
+### Example
+
+```json
+{{ tool.override.example }}
+```
+{% endif %}
+
+{% if tool.override and tool.override.tips %}
+### Tips
+
+{{ tool.override.tips }}
+{% endif %}
+
+{% if tool.override and tool.override.platform_notes %}
+### Platform Notes
+
+{{ tool.override.platform_notes }}
+{% endif %}
+
+{% endfor %}

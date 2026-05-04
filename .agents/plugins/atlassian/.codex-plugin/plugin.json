@@ -1,0 +1,35 @@
+{
+  "name": "atlassian",
+  "version": "0.1.0",
+  "description": "Jira and Confluence access through the configured Atlassian MCP server.",
+  "author": {
+    "name": "Local"
+  },
+  "homepage": "https://www.atlassian.com/",
+  "license": "UNLICENSED",
+  "keywords": [
+    "atlassian",
+    "jira",
+    "confluence",
+    "mcp"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Atlassian",
+    "shortDescription": "Use Jira and Confluence from Codex.",
+    "longDescription": "Home-local plugin that exposes Jira and Confluence through the Atlassian MCP server.",
+    "developerName": "Local",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive"
+    ],
+    "websiteURL": "https://www.atlassian.com/",
+    "defaultPrompt": [
+      "Tìm Jira ticket liên quan tới task này",
+      "Tóm tắt issue và next steps cần làm",
+      "Tìm tài liệu Confluence liên quan tới feature này"
+    ],
+    "brandColor": "#0052CC"
+  }
+}

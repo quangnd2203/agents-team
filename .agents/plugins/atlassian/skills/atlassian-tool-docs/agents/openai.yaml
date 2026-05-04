@@ -1,0 +1,4 @@
+interface:
+  display_name: "Atlassian Tool Docs"
+  short_description: "Generate and maintain Atlassian MCP tool docs"
+  default_prompt: "Use $atlassian-tool-docs to update MDX docs for mcp-atlassian tools."
