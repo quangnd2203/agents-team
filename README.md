@@ -14,8 +14,10 @@ Repo này là catalog dùng chung cho Codex trên máy local, gồm:
 Chạy từ bất kỳ thư mục nào trên máy:
 
 ```bash
-ln -s ~/project/core/agents-team/.agents/skills ~/.codex/skills/skills_repo
-ln -s ~/project/core/agents-team/.codex/agents ~/.codex/
+AGENTS_TEAM_DIR="<path-to-agents-team>"
+
+ln -s "$AGENTS_TEAM_DIR/.agents/skills" ~/.codex/skills/skills_repo
+ln -s "$AGENTS_TEAM_DIR/.codex/agents" ~/.codex/
 ```
 
 Sau khi link xong, Codex sẽ thấy:
@@ -24,6 +26,42 @@ Sau khi link xong, Codex sẽ thấy:
 - Agent definitions tại `~/.codex/agents`
 - Plugin marketplace `agents-team` nếu cấu hình `.codex/config.toml` của repo này được dùng hoặc được đồng bộ vào `~/.codex/config.toml`
 
+## Nạp bộ plugin local
+
+Bộ plugin của repo này nằm trong `.agents/plugins/` và được khai báo qua marketplace `agents-team`.
+
+Thêm block sau vào `~/.codex/config.toml`:
+
+```toml
+[marketplaces.agents-team]
+source_type = "local"
+source = "<path-to-agents-team>"
+
+[plugins."context7@agents-team"]
+enabled = true
+
+[plugins."atlassian@agents-team"]
+enabled = true
+```
+
+Nếu chỉ muốn nạp marketplace nhưng chưa bật plugin nào, chỉ giữ phần:
+
+```toml
+[marketplaces.agents-team]
+source_type = "local"
+source = "<path-to-agents-team>"
+```
+
+Sau khi sửa `~/.codex/config.toml`, mở session Codex mới để runtime nạp lại marketplace, plugin và MCP server.
+
+Kiểm tra nhanh plugin đang có trong marketplace:
+
+```bash
+AGENTS_TEAM_DIR="<path-to-agents-team>"
+
+python3 -m json.tool "$AGENTS_TEAM_DIR/.agents/plugins/marketplace.json"
+```
+
 ## Plugin Context7
 
 Repo này đã có plugin `context7` tại `.agents/plugins/context7`, được expose qua marketplace `agents-team`:
@@ -31,7 +69,7 @@ Repo này đã có plugin `context7` tại `.agents/plugins/context7`, được 
 ```toml
 [marketplaces.agents-team]
 source_type = "local"
-source = "/Users/cuccung/project/core/agents-team"
+source = "<path-to-agents-team>"
 
 [plugins."context7@agents-team"]
 enabled = true
@@ -66,8 +104,8 @@ ls -la ~/.codex/agents
 Nếu link đúng, hai path trên sẽ trỏ về repo này:
 
 ```text
-~/.codex/skills/skills_repo -> ~/project/core/agents-team/.agents/skills
-~/.codex/agents -> ~/project/core/agents-team/.codex/agents
+~/.codex/skills/skills_repo -> <path-to-agents-team>/.agents/skills
+~/.codex/agents -> <path-to-agents-team>/.codex/agents
 ```
 
 ## Khi đã có link cũ
@@ -84,8 +122,10 @@ Nếu chắc chắn muốn trỏ lại về repo này:
 ```bash
 rm ~/.codex/skills/skills_repo
 rm ~/.codex/agents
-ln -s ~/project/core/agents-team/.agents/skills ~/.codex/skills/skills_repo
-ln -s ~/project/core/agents-team/.codex/agents ~/.codex/
+AGENTS_TEAM_DIR="<path-to-agents-team>"
+
+ln -s "$AGENTS_TEAM_DIR/.agents/skills" ~/.codex/skills/skills_repo
+ln -s "$AGENTS_TEAM_DIR/.codex/agents" ~/.codex/
 ```
 
 ## Lưu ý runtime
