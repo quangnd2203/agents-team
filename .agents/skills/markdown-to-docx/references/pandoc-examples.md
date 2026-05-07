@@ -58,6 +58,55 @@ Use this when tables, task lists, or GFM-style Markdown are expected.
 pandoc input.md -f gfm -o output.docx
 ```
 
+## Code Blocks With Highlighting
+
+Use fenced code blocks in Markdown and choose a Pandoc highlight style.
+
+````markdown
+```javascript
+const message = "hello";
+console.log(message);
+```
+````
+
+```bash
+pandoc input.md -f gfm -o output.docx --syntax-highlighting=tango
+```
+
+## Curl Snippets
+
+Use `bash` fences for curl snippets so the command highlights well in DOCX.
+
+````markdown
+```bash
+curl -X POST https://api.example.com/items \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"name":"demo"}'
+```
+````
+
+```bash
+pandoc input.md -f gfm -o output.docx --syntax-highlighting=tango
+```
+
+## Mermaid Flow Charts
+
+Pandoc does not render Mermaid diagrams by itself. Use the wrapper so `mermaid` fences are rendered to PNG before Pandoc creates the DOCX.
+
+````markdown
+```mermaid
+flowchart TD
+  A[Start] --> B{Ready?}
+  B -->|Yes| C[Convert DOCX]
+  B -->|No| D[Fix Markdown]
+```
+````
+
+```bash
+python3 scripts/convert_markdown_to_docx.py input.md output.docx
+```
+
 ## Preserve Line Breaks
 
 Use this when soft line breaks in Markdown should become line breaks in DOCX.
@@ -77,7 +126,7 @@ pandoc input.md -o output.docx --shift-heading-level-by=1
 ## Custom Highlight Style For Code Blocks
 
 ```bash
-pandoc input.md -o output.docx --highlight-style=tango
+pandoc input.md -o output.docx --syntax-highlighting=tango
 ```
 
 ## Read Markdown From Stdin
